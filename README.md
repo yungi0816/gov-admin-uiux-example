@@ -42,7 +42,7 @@ project/
 
 | Before (기존 레거시) | After (최신 개선) |
 |:--------------------:|:-----------------:|
-| ![Before](images/before.png) | ![After](images/after.png) |
+| ![Before1](images/before_1.png) ![Before2](images/before_2.png) ![Before3](images/before_3.png) | ![After1](images/after_1.png) ![After2](images/after_2.png) ![After3](images/after_3.png) |
 
 *10년 이상된 시스템의 복잡한 텍스트/표 기반 화면에서, 최신 기술을 활용한 대화형·시각적 UI로 전환*
 
