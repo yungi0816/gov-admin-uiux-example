@@ -1,0 +1,11 @@
+# Java/Maven
+/target/
+*.class
+*.log
+*.iml
+/.idea/
+.DS_Store
+*.swp
+# 환경/민감정보 예시
+*.properties
+.env
