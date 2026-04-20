@@ -1,6 +1,3 @@
-
-# 국가 시스템 UI/UX 혁신 예시
-
 # 10년 이상된 국가 행정 시스템의 UI/UX 개선 사례
 
 10년 이상 운영된 국가 행정 시스템에 최신 웹 기술과 UI/UX 패턴을 접목하여, 성능과 사용성을 동시에 개선한 사례입니다.
@@ -37,8 +34,6 @@ mvn clean package
 
 ## Before & After (스크린샷)
 
-아래 갤러리는 로컬 `images/` 폴더에 저장된 실제 스크린샷을 사용합니다.
-
 <table>
 	<tr>
 		<th align="center">Before (기존)</th>
@@ -63,7 +58,7 @@ mvn clean package
 			<small>직관적 필터링과 단축 액션</small>
 			<br/><br/>
 			<img src="images/after_3.png" alt="After 3" width="320"/><br/>
-			<small>지도에서 직접 필지 선택 및 시각화</small>
+			<small>직접 필지 선택 및 툴팁 시각화</small>
 		</td>
 	</tr>
 </table>
@@ -71,10 +66,6 @@ mvn clean package
 > 위 이미지는 로컬의 `images/before_1.png` ~ `images/after_3.png` 파일을 참조합니다.
 
 ---
-
-## 이미지 관련 안내
-- 이 리포지토리에는 예시 스크린샷만 포함되어 있으며, 실제 민감 데이터는 제거(익명화)되어 있습니다.
-- 다른 스크린샷으로 교체하려면 `images/` 폴더에 동일한 파일명으로 업로드하십시오.
 
 ## 기여 및 라이선스
 - 본 예시는 교육/포트폴리오 목적의 오픈소스 예시입니다. 코드·문서 수정은 자유롭게 PR을 보내주세요.
