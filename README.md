@@ -1,10 +1,20 @@
-# Government Admin UI/UX Modernization Examples
+# Public Admin GIS Modernization
 
 [한국어 README](README_KOR.md)
 
-This repository documents UI/UX improvement work for legacy public-sector administration systems. It does not expose the original production system. Each case keeps the workflow, design decisions, and sanitized implementation structure while removing internal table names, API names, organization identifiers, and real operational data.
+Case-study repository for improving map-based work flows and legacy UI structure in public-sector administration systems.
 
-The goal is not a full visual redesign. These examples show how to improve task accuracy and reviewability inside strict constraints: JSP/Java screens, shared legacy CSS, audit logging, authorization rules, existing map components, and fixed business procedures.
+The repository does not expose the original production system. Each case keeps the workflow, design decisions, review notes, and sanitized implementation structure while removing internal table names, API names, organization identifiers, work codes, parcel identifiers, and real operational data.
+
+## Technical Evidence
+
+| Area | Evidence |
+| --- | --- |
+| Legacy Java/JSP modernization | UI improvements are documented within JSP, jQuery, Java controller/service/repository, and mapper constraints |
+| GIS-enabled admin workflow | OpenLayers-based parcel selection and boundary review flows are documented as separate case studies |
+| Public-sector system constraints | Audit logging, authorization, fixed business procedures, and shared UI rules are treated as design constraints |
+| User-centered operation design | Before/after screenshots and review notes explain how the work reduces confirmation cost and input mistakes |
+| Security-aware documentation | Sanitized source and redaction rules prevent production identifiers from being published |
 
 ## Cases
 
@@ -20,6 +30,7 @@ The goal is not a full visual redesign. These examples show how to improve task 
 | Documentation index | [docs/README.md](docs/README.md) |
 | Review framework | [docs/review-framework.md](docs/review-framework.md) |
 | Security redaction policy | [docs/security-redaction.md](docs/security-redaction.md) |
+| Changelog | [CHANGELOG.md](CHANGELOG.md) |
 
 ## Repository Structure
 
@@ -43,4 +54,4 @@ Each case owns its screenshots under `cases/<case-name>/assets/`. Add images usi
 
 ## License
 
-No explicit license is currently provided. Treat the repository as a portfolio-style documentation example unless a license is added.
+This repository is published for portfolio review. See [LICENSE](LICENSE).
