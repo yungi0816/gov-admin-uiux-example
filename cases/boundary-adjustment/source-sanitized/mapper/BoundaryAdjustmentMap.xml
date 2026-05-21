@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Sanitized iBatis-style mapper.
+
+  Production schema names, table names, code values, and mapper namespaces were
+  replaced with EXAMPLE_* names. This file explains data responsibilities; it is
+  not intended to run against a production database.
+-->
+<sqlMap namespace="boundaryAdjustmentExample">
+
+    <select id="selectFileList" resultClass="map">
+        SELECT *
+          FROM (
+                SELECT ROW_NUMBER() OVER(ORDER BY F.REGISTERED_AT ASC) AS ROW_NO,
+                       F.FILE_NAME,
+                       F.FILE_DESCRIPTION,
+                       F.STORED_FILE_ID,
+                       F.REGISTERED_BY_NAME,
+                       F.REGISTERED_AT,
+                       M.FILE_MAP_ID,
+                       R.STAGE_CODE
+                  FROM EXAMPLE_FILE_MAP M,
+                       EXAMPLE_STORED_FILE F,
+                       EXAMPLE_BOUNDARY_FILE R
+                 WHERE M.STORED_FILE_ID = F.STORED_FILE_ID
+                   AND M.FILE_MAP_ID = R.FILE_MAP_ID
+                   AND R.PROJECT_ID = #projectId#
+                   AND R.DOCUMENT_TYPE = #documentType#
+                <isNotEmpty property="stageCode">
+                   AND R.STAGE_CODE = #stageCode#
+                </isNotEmpty>
+               )
+         ORDER BY ROW_NO DESC
+    </select>
+
+    <insert id="insertParcelLink" parameterClass="java.util.Map">
+        INSERT INTO EXAMPLE_FILE_PARCEL_LINK (
+            FILE_MAP_ID,
+            PARCEL_ID,
+            PROJECT_ID,
+            REGISTERED_AT,
+            REGISTERED_BY
+        ) VALUES (
+            #fileMapId#,
+            #parcelId#,
+            #projectId#,
+            CURRENT_TIMESTAMP,
+            #userId#
+        )
+    </insert>
+
+    <delete id="deleteParcelLinks" parameterClass="java.util.Map">
+        DELETE FROM EXAMPLE_FILE_PARCEL_LINK
+         WHERE FILE_MAP_ID = #fileMapId#
+    </delete>
+
+    <select id="selectLinkedParcelList" resultClass="map">
+        SELECT L.PARCEL_ID,
+               P.PARCEL_LABEL,
+               P.DISPLAY_ADDRESS,
+               P.LAND_CATEGORY_NAME,
+               P.AREA_TEXT
+          FROM EXAMPLE_FILE_PARCEL_LINK L,
+               EXAMPLE_PROJECT_PARCEL_VIEW P
+         WHERE L.PROJECT_ID = P.PROJECT_ID
+           AND L.PARCEL_ID = P.PARCEL_ID
+           AND L.FILE_MAP_ID = #fileMapId#
+    </select>
+
+    <select id="selectSearchParcelList" parameterClass="java.util.Map" resultClass="map">
+        SELECT P.PARCEL_ID,
+               P.DISPLAY_ADDRESS,
+               P.PARCEL_LABEL,
+               P.LAND_CATEGORY_NAME,
+               P.AREA_TEXT
+          FROM EXAMPLE_PROJECT_PARCEL_VIEW P
+         WHERE P.PROJECT_ID = #projectId#
+        <isNotEmpty property="parcelId">
+           AND P.PARCEL_ID = #parcelId#
+        </isNotEmpty>
+        <isNotEmpty property="mainLotNo">
+           AND P.MAIN_LOT_NO = #mainLotNo#
+        </isNotEmpty>
+        <isNotEmpty property="subLotNo">
+           AND P.SUB_LOT_NO = #subLotNo#
+        </isNotEmpty>
+         ORDER BY P.PARCEL_ID
+    </select>
+
+    <select id="selectBoundaryGeometry" resultClass="map">
+        SELECT B.PARCEL_ID,
+               B.PARCEL_LABEL,
+               B.DISPLAY_ADDRESS,
+               B.LAND_CATEGORY_NAME,
+               B.AREA_VALUE,
+               (
+                 SELECT COUNT(1)
+                   FROM EXAMPLE_FILE_PARCEL_LINK L
+                  WHERE L.PROJECT_ID = B.PROJECT_ID
+                    AND L.PARCEL_ID = B.PARCEL_ID
+               ) AS ADJUSTMENT_COUNT,
+               B.GEOMETRY_WKT
+          FROM EXAMPLE_GIS_BOUNDARY_VIEW B
+         WHERE B.PROJECT_ID = #projectId#
+    </select>
+
+    <select id="selectAdjustmentCountList" resultClass="map">
+        SELECT PARCEL_ID,
+               COUNT(1) AS ADJUSTMENT_COUNT
+          FROM EXAMPLE_FILE_PARCEL_LINK
+         WHERE PROJECT_ID = #projectId#
+         GROUP BY PARCEL_ID
+    </select>
+
+</sqlMap>
